@@ -1,6 +1,6 @@
 # canvass
 
-The website and documentation site for [codenv](https://github.com/Tijani127/codenv) — built with [Bun](https://bun.sh), [Vite](https://vite.dev), React 19, Tailwind CSS v4, [shadcn/ui](https://ui.shadcn.com) and [Canvas UI](https://canvasui.dev).
+The website and documentation site for [codenv](https://github.com/Tijani127/codenv) — live at **https://codenv.netlify.app**. Built with [Bun](https://bun.sh), [Vite](https://vite.dev), React 19, Tailwind CSS v4, [shadcn/ui](https://ui.shadcn.com) and [Canvas UI](https://canvasui.dev).
 
 ## Dev
 
@@ -31,20 +31,14 @@ All doc content is sourced from codenv's `README.md` and `CHANGELOG.md`.
 
 ## Deploy (Netlify)
 
-The repo root has a `netlify.toml` that Netlify picks up automatically:
+The site deploys automatically: `netlify.toml` in the repo root tells Netlify to
+run `bun run build`, publish `dist` (package manager detected from `bun.lock`),
+and serve a catch-all redirect (`/* → /index.html`, 200) so `BrowserRouter`
+routes such as `/docs/store` work on direct visits and refreshes.
 
-- build command `bun run build`, publish directory `dist` (package manager
-  is detected from `bun.lock`)
-- a catch-all redirect (`/* → /index.html`, 200) so `BrowserRouter`
-  routes such as `/docs/store` work on direct visits and refreshes
-
-To create the site as **codenv-website** (https://codenv-website.netlify.app):
-
-```bash
-bunx netlify-cli sites:create --name codenv-website --dir dist --prod
-# or in the Netlify dashboard: "Add new site" → import the GitHub repo,
-# then Site settings → change site name to codenv-website
-```
+Live site: **https://codenv.netlify.app** (site name `codenv`). The Netlify
+build badge can be enabled with the badge ID shown in
+Site configuration → General → Status badges.
 
 ## Adding components
 
