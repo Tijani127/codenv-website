@@ -1,0 +1,14 @@
+[build]
+  # Netlify detects the package manager from the lockfile: bun.lock -> bun.
+  command = "bun run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Single-page app: serve index.html for every route so /docs/*,
+# /changelog, etc. work on direct visits and hard refreshes.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
