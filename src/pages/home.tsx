@@ -25,7 +25,7 @@ codenv shell`
 const session = `PS C:\\myapp> codenv add 7zip@24.09
 Installed 7zip 24.09 (7zip@24.09) into store
 PS C:\\myapp> codenv shell
-codenv:myapp> 7z | Select-Object -First 1
+[codenv] PS C:\\myapp> 7z | Select-Object -First 1
 
 7-Zip 24.09 (x64) : Copyright (c) 1999-2024 Igor Pavlov`
 
