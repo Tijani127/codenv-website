@@ -931,7 +931,7 @@ export const services = (
     <p>
       A codenv environment is not just tools — it can also run the processes a
       project needs. Services are declared in{" "}
-      <code>codenv-services.json</code> next to your <code>codenv.json</code>{" "}
+      <code>codenv-services.json</code> instead of devbox's{" "} <code>process-compose.yml</code>, next to your <code>codenv.json</code>{" "}
       and supervised by a <strong>built-in supervisor</strong>: there is no
       external process manager to install on Windows.
     </p>
