@@ -217,7 +217,7 @@ export default function Home() {
                       <span className="text-white/40">&gt; </span>
                       <span className="text-white">codenv shell</span>
                       {"\n\n"}
-                      <span className="text-emerald-400">codenv:myapp</span>
+                      <span className="text-emerald-400">[codenv] PS C:\\myapp</span>
                       <span className="text-white/40">&gt; </span>
                       <span className="text-white">7z --help | Select -First 1</span>
                       {"\n\n"}
