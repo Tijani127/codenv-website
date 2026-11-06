@@ -755,7 +755,7 @@ export const devbox = (
         <tr>
           <td><code>devbox services</code> (process-compose)</td>
           <td><code>codenv services</code> (built-in supervisor)</td>
-          <td>No external process manager to install on Windows. Same config file shape.</td>
+          <td>No external process manager to install on Windows. Different config format.</td>
         </tr>
         <tr>
           <td><code>devbox create &lt;template&gt;</code> (remote catalogue)</td>
@@ -974,9 +974,7 @@ export const services = (
     </table>
     <p>
       Unlike devbox, which shells out to <code>process-compose</code>, the
-      supervisor ships inside the binary. The configuration file has the same
-      shape as <code>devbox-services.json</code>, so existing setups port
-      over by renaming the file.
+      supervisor ships inside the binary. It's not like devbox's <code>process-compose.yml</code>, but it is a drop-in replacement for the same use cases.
     </p>
   </DocPage>
 )
