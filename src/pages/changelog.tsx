@@ -73,7 +73,7 @@ export default function Changelog() {
           "<code>codenv shell</code> opens an isolated shell with a <code>codenv:</code> prompt marker; <code>codenv shell &lt;cmd&gt;</code> runs one command inside it.",
           "<code>codenv run</code> executes a script from <code>codenv.json</code> or any command, propagating the child's exit code.",
           "<code>shell.init_hook</code> runs on every shell and script start.",
-          "<code>--pure</code> reduces the environment to a minimal set; <code>--env</code>/<code>--env-file</code> set variables; <code>codenv shellenv</code> prints PowerShell, bash or cmd code for direnv and editor integrations.",
+          "<code>--pure</code> reduces the environment to a minimal set; <code>--env</code>/<code>--env-file</code> set variables; <code>codenv shellenv</code> prints PowerShell, bash, sh, zsh, fish, ksh or dash code for direnv and editor integrations. The POSIX script is verified by test to avoid bash-only constructs such as <code>[[</code>, <code>local</code> and <code>mapfile</code>.",
         ]}
       />
       <Section
@@ -110,6 +110,45 @@ export default function Changelog() {
           "<code>codenv create &lt;template&gt;</code> scaffolds a project with a pinned toolchain. Templates: <code>go</code>, <code>python</code>, <code>node</code>, <code>rust</code>, <code>minimal</code>.",
           "<code>codenv generate dockerfile|devcontainer|direnv|readme</code> produces supporting files.",
           "<code>codenv cache info|clean</code>, and shell completions for PowerShell, bash, zsh and fish.",
+        ]}
+      />
+      <Section
+        title="Importing from devbox"
+        items={[
+          "<code>codenv import devbox</code> converts a <code>devbox.json</code> into <code>codenv.json</code>. Nix package names are mapped to the Scoop packages that provide them, attribute-path and flake-reference spellings (<code>python310Packages.python310</code>, <code>flake:nixpkgs#go</code>) reduce to a bare name, and version suffixes are preserved as versions-bucket pins so <code>postgresql_16</code> becomes <code>versions/postgresql16</code> rather than an unpinned <code>postgresql</code>.",
+          "Packages with no Scoop equivalent are reported and left out instead of being replaced by a guess. Known cases carry a suggested alternative, for example <code>tmux</code> points at <code>cygwin</code> or <code>msys2</code>.",
+          "Java imports from the <code>java</code> bucket, with pins such as <code>java21</code> becoming <code>java/temurin21-jdk</code>, and the required bucket added to the generated config automatically.",
+          "<code>--dry-run</code> reports the conversion without writing anything; <code>--force</code> overwrites an existing <code>codenv.json</code>.",
+          "The mapping is a test-enforced table: every entry is checked against the real <code>main</code>, <code>extras</code> and <code>versions</code> buckets, so a mapping cannot drift into naming a package that does not exist.",
+        ]}
+      />
+      <Section
+        title="Fixed"
+        items={[
+          "<code>codenv shellenv --format bash</code> split <code>PATH</code> on <code>:</code> regardless of platform. On Windows <code>PATH</code> is joined with <code>;</code>, so the script never split it and the inherited entries were not deduplicated. Every generated format now uses the platform separator.",
+          "<code>codenv shell</code> could not start a unix shell: <code>zsh</code>, <code>fish</code>, <code>sh</code>, <code>dash</code> and <code>ksh</code> were launched with <code>/c</code>, which no unix shell accepts. They are now recognised and run with <code>-c</code>.",
+          "Shell detection compared substrings, so a program named <code>bashtop</code> was treated as bash and <code>resharper</code> as powershell. It now compares the program name.",
+          "<code>CODEENV_SHELL_FORMAT</code> and <code>$SHELL</code> detection had drifted apart. Both now go through the same parser, and an unrecognised value falls back to detection instead of silently defaulting.",
+          "<code>codenv</code> silently resolved the <strong>wrong</strong> program when a manifest declared no <code>bin</code> — about 1,346 of the 4,716 manifests in the synced buckets. Installing a JDK from the <code>java</code> bucket and running <code>java</code> returned the system JDK instead of the pinned one; codenv now probes the installed layout for the directories that actually hold executables.",
+          "<code>\"buckets\"</code> in <code>codenv.json</code> was ignored, so any bucket from an included config was dropped and never cloned.",
+          "<code>codenv import devbox</code> mangled names containing a version dot (<code>golang1.22</code> was reduced to <code>22</code>, losing the package) and did not map <code>golang</code>, the name asdf and mise use for Go.",
+          "<code>LookPath</code> resolved relative paths against codenv's own working directory instead of the project's, so <code>codenv shell .\\bin\\app.exe</code> failed.",
+          "An in-place environment filter used by <code>--pure</code> compacted a slice without shortening it, which leaked unrelated variables into the sanitised environment.",
+        ]}
+      />
+      <Section
+        title="Removed"
+        items={[
+          "<code>codenv shellenv --compact</code> was advertised in <code>--help</code> but never read, so it silently printed the full multi-line script. It now emits a single <code>PATH</code> export for PowerShell, bash and cmd.",
+          "<code>CODEENV_SHELL_FORMAT</code> was documented but not implemented. It now selects the <code>shellenv</code> format and falls back to auto-detection when the value is not recognised.",
+          "<code>codenv rm --force</code> did nothing; <code>rm</code> already succeeds when a package is absent, so the flag has been removed.",
+          "Dead code with no callers: <code>engine.lastLines</code>, <code>project.RelOrSame</code>, <code>ui.SetOutput</code>, <code>ui.SetColorEnabled</code>, <code>ui.KeyValue</code>, <code>ui.Rule</code> and an unused <code>flagAddOutputs</code> variable.",
+        ]}
+      />
+      <Section
+        title="Documentation"
+        items={[
+          "Documented installing shell completions per shell, and called out that PowerShell needs <code>Out-String</code>: <code>codenv completion powershell | Out-String | Invoke-Expression</code>. Piping straight into <code>Invoke-Expression</code> fails with <code>Missing closing '}'</code>, because PowerShell runs each piped line as its own statement and the script contains multi-line function blocks.",
         ]}
       />
       <Section
