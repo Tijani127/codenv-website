@@ -201,7 +201,20 @@ export const install = (
       buckets).
     </p>
     <p>
-      Download the latest release and unzip it, or build from source:
+      One command in PowerShell:
+    </p>
+    <CodeBlock
+      lang="powershell"
+      terminal
+      code={`irm https://github.com/Tijani127/codenv/releases/latest/download/install.ps1 | iex`}
+    />
+    <p>
+      The installer picks the right build for your machine's architecture,
+      installs to <code>%LOCALAPPDATA%\Programs\codenv</code> and adds it to
+      your user <code>PATH</code>. Windows PowerShell 5.1 compatible.
+    </p>
+    <p>
+      Or download the latest release and unzip it, or build from source:
     </p>
     <CodeBlock
       lang="powershell"
@@ -272,6 +285,18 @@ codenv shellenv --compact       # just a single PATH export, for a profile or CI
       <code>README.md</code> and a <code>.gitignore</code>, and pins the
       toolchain each template needs. List them with{" "}
       <code>codenv create templates</code>.
+    </p>
+    <p>
+      <code>create</code> also accepts your own templates: a directory under{" "}
+      <code>~/.codenv/templates</code> (override with{" "}
+      <code>CODEENV_TEMPLATES</code>), or a git repository —{" "}
+      <code>codenv create owner/repo</code>, or a full <code>https://</code>/
+      <code>git@</code> URL, cloned at its default branch or at{" "}
+      <code>--ref &lt;branch&gt;</code>. Every file is copied recursively,
+      with <code>&#123;&#123;PROJECT&#125;&#125;</code>,{" "}
+      <code>&#123;&#123;TITLE&#125;&#125;</code> and{" "}
+      <code>&#123;&#123;MODULE&#125;&#125;</code> replaced by the project
+      name, template title and module path.
     </p>
     <p>
       <code>codenv.json</code> and <code>codenv.lock.json</code> should both
@@ -416,6 +441,28 @@ codenv secrets list                       # shows set/unset, never values`}
         per-project <code>--env-file</code> over relying on global variables.
       </li>
     </ul>
+
+    <H2>Windows Credential Manager fallback</H2>
+    <p>
+      For values you do not want sitting in a plain environment variable at
+      all, <code>codenv secrets set &lt;NAME&gt;</code> stores one in the{" "}
+      <strong>Windows Credential Manager</strong> under the{" "}
+      <code>codenv:secret:&lt;NAME&gt;</code> target and declares the name:
+    </p>
+    <CodeBlock
+      lang="powershell"
+      terminal
+      code={`codenv secrets set API_KEY --stdin          # keep the value out of shell history
+codenv secrets list                          # the SOURCE column shows "credential manager"
+codenv secrets rm API_KEY --stored           # delete the declaration and the stored value`}
+    />
+    <p>
+      When a shell or script resolves secrets, a declared name that is not
+      provided by the environment or a <code>from</code> mapping falls back
+      to the stored value. Nothing sensitive is ever written to the project
+      directory or codenv's own config — the value lives only in the
+      Credential Manager, protected by your Windows account.
+    </p>
   </DocPage>
 )
 
@@ -502,6 +549,38 @@ codenv will not substitute a different version, because that would break reprodu
       That is deliberate. A reproducible environment that silently runs the
       wrong version is worse than one that tells you it cannot be built.
     </p>
+
+    <H2>Reclaiming space with <code>codenv gc</code></H2>
+    <p>
+      Old store versions can pile up. <code>codenv gc</code> deletes every
+      installed version that no registered project's{" "}
+      <code>codenv.lock.json</code> pins, and prunes index entries for
+      versions that no longer exist on disk:
+    </p>
+    <CodeBlock
+      lang="powershell"
+      terminal
+      code={`codenv gc --dry-run    # print what would be deleted
+codenv gc              # delete it`}
+    />
+    <ul>
+      <li>
+        The store's own Scoop installation, every version a project pins, and
+        every version the <code>current</code> junction points at are always
+        spared.
+      </li>
+      <li>
+        Projects are registered automatically by every codenv command. One
+        pinned before this feature arrived is invisible to{" "}
+        <code>gc</code> until it runs any codenv command again — open it once
+        to protect it, or pass <code>--force</code> to sweep without its
+        references.
+      </li>
+      <li>
+        Project-mode stores are swept with that project's own lockfile, so a
+        private store never loses a version its project still uses.
+      </li>
+    </ul>
   </DocPage>
 )
 
@@ -516,7 +595,7 @@ export const commands = (
       </thead>
       <tbody>
         <tr><td><code>codenv doctor</code></td><td>Diagnose the setup; <code>--fix</code> repairs what is safe to repair</td></tr>
-        <tr><td><code>codenv create &lt;template&gt; [dir]</code></td><td>Scaffold a project (<code>go</code>, <code>python</code>, <code>node</code>, <code>rust</code>, <code>minimal</code>)</td></tr>
+        <tr><td><code>codenv create &lt;template|repo&gt; [dir]</code></td><td>Scaffold a project — builtin (<code>go</code>, <code>python</code>, <code>node</code>, <code>rust</code>, <code>minimal</code>), a local template dir, or a git repo (<code>owner/repo</code>, <code>--ref</code>)</td></tr>
         <tr><td><code>codenv init [dir]</code></td><td>Create just <code>codenv.json</code></td></tr>
         <tr><td><code>codenv add &lt;pkg&gt;...</code></td><td>Add packages and install them</td></tr>
         <tr><td><code>codenv install</code></td><td>Install everything in <code>codenv.json</code></td></tr>
@@ -530,8 +609,9 @@ export const commands = (
         <tr><td><code>codenv info &lt;pkg&gt;...</code></td><td>Show a manifest: version, licence, dependencies, binaries</td></tr>
         <tr><td><code>codenv global &lt;sub&gt;</code></td><td><code>add</code>, <code>rm</code>, <code>list</code>, <code>install</code>, <code>update</code>, <code>run</code>, <code>shellenv</code>, <code>pull</code>, <code>push</code>, <code>path</code></td></tr>
         <tr><td><code>codenv services &lt;sub&gt;</code></td><td><code>up</code>, <code>start</code>, <code>stop</code>, <code>restart</code>, <code>ls</code>, <code>logs</code>, <code>clean</code></td></tr>
-        <tr><td><code>codenv secrets &lt;sub&gt;</code></td><td><code>add</code>, <code>from</code>, <code>list</code>, <code>rm</code>, <code>download</code></td></tr>
-        <tr><td><code>codenv generate &lt;target&gt;</code></td><td><code>dockerfile</code>, <code>devcontainer</code>, <code>direnv</code>, <code>readme</code></td></tr>
+        <tr><td><code>codenv secrets &lt;sub&gt;</code></td><td><code>add</code>, <code>from</code>, <code>list</code>, <code>set</code>, <code>rm</code>, <code>download</code> — declare and store secrets</td></tr>
+        <tr><td><code>codenv generate &lt;target&gt;</code></td><td><code>dockerfile</code>, <code>devcontainer</code>, <code>direnv</code>, <code>readme</code>, <code>ci</code></td></tr>
+        <tr><td><code>codenv gc [--dry-run]</code></td><td>Reclaim store space: delete versions no project pins, prune stale index entries</td></tr>
         <tr><td><code>codenv import &lt;format&gt;</code></td><td><code>devbox</code> — convert a <code>devbox.json</code> into <code>codenv.json</code></td></tr>
         <tr><td><code>codenv cache &lt;sub&gt;</code></td><td><code>info</code>, <code>clean</code></td></tr>
         <tr><td><code>codenv completion &lt;shell&gt;</code></td><td><code>powershell</code>, <code>bash</code>, <code>zsh</code>, <code>fish</code></td></tr>
@@ -821,6 +901,7 @@ const envVarsRead = [
   ["CODEENV_SHELL_BIN", "Force the shell `codenv shell` launches (PowerShell path, `bash`, `cmd`, ...)"],
   ["CODEENV_SHELL_FORMAT", "Default format for `shellenv` output: `powershell`, `bash` or `cmd`"],
   ["CODEENV_POWERSHELL", "PowerShell executable used to run Scoop internally"],
+  ["CODEENV_TEMPLATES", "Directory of your own project templates for `codenv create` (default `~/.codenv/templates`)"],
   ["NO_COLOR, CODEENV_FORCE_COLOR", "Colour control"],
 ]
 
@@ -1018,8 +1099,33 @@ export const generate = (
           <td><code>codenv generate readme</code></td>
           <td>A README section documenting the project's environment</td>
         </tr>
+        <tr>
+          <td><code>codenv generate ci</code></td>
+          <td>
+            A GitHub Actions workflow that installs codenv from its releases,
+            caches Scoop buckets and the store, and runs your command on{" "}
+            <code>windows-latest</code>
+          </td>
+        </tr>
       </tbody>
     </table>
+
+    <H3><code>generate ci</code></H3>
+    <CodeBlock
+      lang="powershell"
+      code={`codenv generate ci                       # runs: codenv run test
+codenv generate ci --command "run ci"    # run a different script
+codenv generate ci --codenv-ref v1.1.0   # pin a codenv release instead of latest`}
+    />
+    <p>
+      The workflow writes <code>.github/workflows/codenv.yml</code>: Scoop
+      buckets are cached under a static key, the store is cached keyed on{" "}
+      <code>hashFiles('codenv.lock.json')</code> with a prefix fallback, and
+      codenv itself is installed from the release zip for the runner's
+      architecture. Regenerate after changing your CI command — the file is
+      written like every other generated file, with <code>--force</code> to
+      overwrite.
+    </p>
 
     <H2>Importing from devbox</H2>
     <CodeBlock
