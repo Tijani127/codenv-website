@@ -997,7 +997,7 @@ codenv doctor --fix    # repair what codenv can safely repair`}
       </li>
     </ul>
     <p className="flex items-center gap-2">
-      <Badge variant="outline" className="font-mono">v1.0 Saskatchewan</Badge>
+      <Badge variant="outline" className="font-mono">v1.1 Regina</Badge>
       is the current stable release — see the{" "}
       <a href="https://github.com/Tijani127/codenv/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">
         full changelog

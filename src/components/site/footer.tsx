@@ -29,7 +29,7 @@ export function Footer() {
             GitHub
           </a>
           <Badge variant="outline" className="font-mono text-[11px]">
-            v1.0 Saskatchewan
+            v1.1 Regina
           </Badge>
         </div>
       </div>

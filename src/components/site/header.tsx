@@ -27,7 +27,7 @@ export function Header() {
           codenv
         </Link>
         <Badge variant="outline" className="hidden font-mono text-[11px] sm:inline-flex">
-          v1.0 Saskatchewan
+          v1.1 Regina
         </Badge>
 
         <nav className="ml-4 hidden items-center gap-1 sm:flex">
