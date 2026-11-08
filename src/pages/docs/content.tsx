@@ -839,8 +839,8 @@ export const devbox = (
         </tr>
         <tr>
           <td><code>devbox create &lt;template&gt;</code> (remote catalogue)</td>
-          <td><code>codenv create &lt;template&gt;</code> (built-in)</td>
-          <td>Built-in templates ship with the binary; there is no remote template catalogue.</td>
+          <td><code>codenv create &lt;template|repo&gt;</code> (builtin + local + any git repo)</td>
+          <td>Built-in templates ship with the binary, and <code>codenv create owner/repo</code> uses any repository as a template — no curated catalogue to trust.</td>
         </tr>
         <tr>
           <td><code>devbox.json</code> written by hand</td>

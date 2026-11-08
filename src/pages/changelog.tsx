@@ -45,6 +45,34 @@ export default function Changelog() {
       <Separator className="my-10" />
 
       <div className="mb-2 flex flex-wrap items-center gap-3">
+        <h2 className="text-2xl font-semibold tracking-tight">1.1.0 — Regina</h2>
+        <Badge variant="outline" className="font-mono text-[11px]">
+          2026-11-08
+        </Badge>
+        <Badge variant="outline" className="font-mono text-[11px]">
+          latest
+        </Badge>
+      </div>
+      <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+        The installer release: codenv gets a one-line installation story, store
+        maintenance, secret storage, CI generation, and template growth.
+      </p>
+
+      <Section
+        title="Added"
+        items={[
+          "<strong>One-line installer.</strong> <code>irm https://github.com/Tijani127/codenv/releases/latest/download/install.ps1 | iex</code> downloads the right build for the machine's architecture, installs to <code>%LOCALAPPDATA%\\Programs\\codenv</code> and adds it to the user <code>PATH</code>. Windows PowerShell 5.1 compatible.",
+          "<strong><code>codenv gc [--dry-run] [--force]</code></strong> reclaims store space: every installed version no registered project's lockfile pins is deleted, stale index entries are pruned, empty app directories are removed. The store's own Scoop installation, pinned versions and <code>current</code> junction targets are always spared.",
+          "<strong>Windows Credential Manager secret provider.</strong> <code>codenv secrets set &lt;NAME&gt; [--stdin]</code> stores a value under <code>codenv:secret:&lt;NAME&gt;</code>; a shell falls back to it for declared secrets that are unset in the environment, and <code>codenv secrets rm --stored</code> deletes it.",
+          "<strong><code>codenv generate ci</code></strong> writes <code>.github/workflows/codenv.yml</code> that installs codenv from its releases, caches Scoop buckets and the store keyed on <code>hashFiles('codenv.lock.json')</code>, and runs your command on <code>windows-latest</code>.",
+          "<strong>Environment drift notice.</strong> An interactive <code>codenv shell</code> compares its top-level pins against the previous shell's snapshot in <code>.codenv/env.json</code> and warns in one line when they changed.",
+          "<strong><code>codenv create</code> grows remote and local templates.</strong> Template sources are builtin → <code>~/.codenv/templates</code> (or <code>CODEENV_TEMPLATES</code>) → a git repository (<code>owner/repo</code>, <code>github:owner/repo</code>, or a full URL), recursively copied with <code>{{ '{{' }}PROJECT}}</code>/<code>{{ '{{' }}TITLE}}</code>/<code>{{ '{{' }}MODULE}}</code> substitution; a new <code>--ref</code> flag picks a branch or tag.",
+        ]}
+      />
+
+      <Separator className="my-10" />
+
+      <div className="mb-2 flex flex-wrap items-center gap-3">
         <h2 className="text-2xl font-semibold tracking-tight">1.0.0 — Saskatchewan</h2>
         <Badge variant="outline" className="font-mono text-[11px]">
           2026-10-06 · stable
