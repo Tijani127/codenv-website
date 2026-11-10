@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, FileText } from "lucide-react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import { docNav, flatDocNav } from "./nav"
 import { cn } from "@/lib/utils"
+import { usePageMeta } from "@/lib/use-page-meta"
 
 function Sidebar() {
   const location = useLocation()
@@ -102,6 +103,10 @@ export function DocPage({
   title: string
   children: React.ReactNode
 }) {
+  usePageMeta({
+    title: `${title} · codenv docs`,
+    description: `codenv documentation — ${title}. codenv is a Windows reimplementation of devbox backed by Scoop instead of Nix.`,
+  })
   return (
     <article>
       <h1 className="mb-2 flex items-center gap-2.5 text-3xl font-semibold">

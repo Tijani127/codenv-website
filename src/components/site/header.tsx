@@ -4,6 +4,7 @@ import { Menu, SquareTerminal } from "lucide-react"
 import { Link, NavLink, useLocation } from "react-router-dom"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { DocSearch } from "@/components/site/search"
 
 const nav = [
   { to: "/", label: "Home" },
@@ -50,6 +51,7 @@ export function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
+          <DocSearch />
           <Button variant="outline" size="sm" className="hidden font-mono text-xs sm:inline-flex" asChild>
             <a
               href="https://github.com/Tijani127/codenv"

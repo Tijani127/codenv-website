@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { usePageMeta } from "@/lib/use-page-meta"
 
 function Section({ title, items }: { title: string; items: string[] }) {
   return (
@@ -17,6 +18,11 @@ function Section({ title, items }: { title: string; items: string[] }) {
 }
 
 export default function Changelog() {
+  usePageMeta({
+    title: "Changelog · codenv",
+    description:
+      "All notable changes to codenv, version by version — from 1.0.0 Saskatchewan to 1.1.0 Regina and beyond.",
+  })
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
       <h1 className="text-4xl font-semibold tracking-tight">Changelog</h1>

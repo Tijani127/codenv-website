@@ -20,6 +20,8 @@ import {
   services,
   store,
 } from "@/pages/docs/content"
+import { CliReference } from "@/pages/docs/cli"
+import { CiRecipes } from "@/pages/docs/ci"
 
 const docRoutes: Record<string, React.ReactNode> = {
   introduction,
@@ -31,9 +33,11 @@ const docRoutes: Record<string, React.ReactNode> = {
   store,
   commands,
   generate,
+  cli: <CliReference />,
   guarantees,
   devbox,
   reference,
+  ci: <CiRecipes />,
 }
 
 function ScrollToTop() {

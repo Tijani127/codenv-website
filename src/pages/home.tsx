@@ -17,6 +17,7 @@ import {
   Trash2,
 } from "lucide-react"
 import { Link } from "react-router-dom"
+import { usePageMeta } from "@/lib/use-page-meta"
 
 const quickstart = `codenv init
 codenv add ripgrep 7zip
@@ -100,6 +101,11 @@ const stats = [
 ]
 
 export default function Home() {
+  usePageMeta({
+    title: "codenv — reproducible dev environments on Windows",
+    description:
+      "Declare your toolchain in codenv.json and every machine gets the exact same package versions on PATH. A Windows reimplementation of devbox backed by Scoop instead of Nix, with shims disabled.",
+  })
   return (
     <>
       {/* Hero — Canvas UI effects need an explicit height on the wrapper. */}

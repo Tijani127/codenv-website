@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://codenv.netlify.app/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://codenv.netlify.app/changelog</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://codenv.netlify.app/docs/introduction</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/install</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/quick-start</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/configuration</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/secrets</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/services</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/store</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/commands</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/generate</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/cli</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/guarantees</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/devbox</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/reference</loc></url>
+  <url><loc>https://codenv.netlify.app/docs/ci</loc></url>
+</urlset>
