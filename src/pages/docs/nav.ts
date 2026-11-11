@@ -26,6 +26,7 @@ export const docNav: DocNavSection[] = [
       { slug: "store", title: "Store modes & pinning" },
       { slug: "commands", title: "Commands & scripts" },
       { slug: "generate", title: "Generate & import" },
+      { slug: "templates", title: "Templates" },
       { slug: "ci", title: "CI recipes" },
     ],
   },

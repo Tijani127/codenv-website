@@ -5,6 +5,7 @@ import { Link, NavLink, useLocation } from "react-router-dom"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { DocSearch } from "@/components/site/search"
+import { ThemeToggle } from "@/components/site/theme-toggle"
 
 const nav = [
   { to: "/", label: "Home" },
@@ -28,7 +29,7 @@ export function Header() {
           codenv
         </Link>
         <Badge variant="outline" className="hidden font-mono text-[11px] sm:inline-flex">
-          v1.1 Regina
+          v1.2 Fort Quapelle
         </Badge>
 
         <nav className="ml-4 hidden items-center gap-1 sm:flex">
@@ -52,6 +53,7 @@ export function Header() {
 
         <div className="ml-auto flex items-center gap-2">
           <DocSearch />
+          <ThemeToggle />
           <Button variant="outline" size="sm" className="hidden font-mono text-xs sm:inline-flex" asChild>
             <a
               href="https://github.com/Tijani127/codenv"

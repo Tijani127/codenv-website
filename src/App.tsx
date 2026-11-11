@@ -22,6 +22,7 @@ import {
 } from "@/pages/docs/content"
 import { CliReference } from "@/pages/docs/cli"
 import { CiRecipes } from "@/pages/docs/ci"
+import { Templates } from "@/pages/docs/templates"
 
 const docRoutes: Record<string, React.ReactNode> = {
   introduction,
@@ -34,6 +35,7 @@ const docRoutes: Record<string, React.ReactNode> = {
   commands,
   generate,
   cli: <CliReference />,
+  templates: <Templates />,
   guarantees,
   devbox,
   reference,

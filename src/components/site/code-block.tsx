@@ -32,7 +32,7 @@ export function CodeBlock({
   return (
     <figure
       className={cn(
-        "not-prose group my-6 overflow-hidden rounded-xl border bg-zinc-950",
+        "not-prose group my-6 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950 text-zinc-200",
         className,
       )}
     >
@@ -44,14 +44,14 @@ export function CodeBlock({
             <span className="size-2.5 rounded-full bg-green-500/70" />
           </span>
         ) : null}
-        <span className="text-muted-foreground font-mono text-xs tracking-wide">
+        <span className="font-mono text-xs tracking-wide text-zinc-500">
           {lang ?? (terminal ? "terminal" : "code")}
         </span>
         <button
           type="button"
           onClick={copy}
           aria-label="Copy code"
-          className="text-muted-foreground hover:text-foreground ml-auto cursor-pointer transition-colors"
+          className="ml-auto cursor-pointer text-zinc-500 transition-colors hover:text-zinc-300"
         >
           {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
         </button>

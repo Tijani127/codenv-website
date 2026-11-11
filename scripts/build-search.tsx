@@ -29,6 +29,7 @@ import {
 } from "../src/pages/docs/content"
 import { CliReference } from "../src/pages/docs/cli"
 import { CiRecipes } from "../src/pages/docs/ci"
+import { Templates } from "../src/pages/docs/templates"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 
@@ -46,6 +47,7 @@ const pageBySlug: Record<string, React.ReactNode> = {
   commands,
   generate,
   cli: <CliReference />,
+  templates: <Templates />,
   ci: <CiRecipes />,
   guarantees,
   devbox,

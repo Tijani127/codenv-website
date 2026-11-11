@@ -818,6 +818,42 @@ export const cliCommands: Record<string, unknown> = {
     ],
     "subs": []
   },
+  "outdated": {
+    "name": "codenv outdated",
+    "usage": [
+      "  codenv outdated [flags]"
+    ],
+    "long": "List the packages this project (or codenv global with --global) pins or tracks\nthat have a newer version available in their bucket.\n\nUnpinned packages move with 'codenv install'; pinned ones only move with\n'codenv update --all', which re-resolves the pin.",
+    "flags": [
+      {
+        "names": "--global",
+        "usage": "check the global configuration"
+      },
+      {
+        "names": "-h, --help",
+        "usage": "help for outdated"
+      },
+      {
+        "names": "--missing",
+        "usage": "also list packages whose manifest vanished from the buckets"
+      },
+      {
+        "names": "--no-sync",
+        "usage": ""
+      }
+    ],
+    "globalFlags": [
+      {
+        "names": "-c, --config string",
+        "usage": "path to a directory containing codenv.json"
+      },
+      {
+        "names": "-q, --quiet",
+        "usage": "suppress logs"
+      }
+    ],
+    "subs": []
+  },
   "rm": {
     "name": "codenv rm",
     "usage": [
@@ -1446,6 +1482,30 @@ export const cliCommands: Record<string, unknown> = {
       {
         "names": "-h, --help",
         "usage": "help for shellenv"
+      }
+    ],
+    "globalFlags": [
+      {
+        "names": "-c, --config string",
+        "usage": "path to a directory containing codenv.json"
+      },
+      {
+        "names": "-q, --quiet",
+        "usage": "suppress logs"
+      }
+    ],
+    "subs": []
+  },
+  "templates": {
+    "name": "codenv templates",
+    "usage": [
+      "  codenv templates [flags]"
+    ],
+    "long": "List the available project templates",
+    "flags": [
+      {
+        "names": "-h, --help",
+        "usage": "help for templates"
       }
     ],
     "globalFlags": [

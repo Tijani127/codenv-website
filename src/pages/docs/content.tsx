@@ -244,6 +244,7 @@ export const install = (
       <tbody>
         <tr><td><code>v1.0</code></td><td>Saskatchewan</td></tr>
         <tr><td><code>v1.1</code></td><td>Regina</td></tr>
+        <tr><td><code>v1.2</code></td><td>Fort Quapelle</td></tr>
         <tr><td><code>v1.4</code></td><td>Saskatoon</td></tr>
         <tr><td><code>v2.0</code></td><td>Manitoba</td></tr>
         <tr><td><code>v2.2</code></td><td>Winnipeg</td></tr>
@@ -778,7 +779,7 @@ export const guarantees = (
         between projects.
       </li>
       <li>
-        81 tests cover the lockfile, package resolution, secret resolution,
+        90 tests cover the lockfile, package resolution, secret resolution,
         template rendering, <code>PATH</code> lookup, shell-output formats,
         config merging, package layout probing, shell detection, and the
         devbox import mapping. CI runs them on every push.
@@ -997,7 +998,7 @@ codenv doctor --fix    # repair what codenv can safely repair`}
       </li>
     </ul>
     <p className="flex items-center gap-2">
-      <Badge variant="outline" className="font-mono">v1.1 Regina</Badge>
+      <Badge variant="outline" className="font-mono">v1.2 Fort Quapelle</Badge>
       is the current stable release — see the{" "}
       <a href="https://github.com/Tijani127/codenv/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">
         full changelog

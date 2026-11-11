@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import { Link } from "react-router-dom"
 import { usePageMeta } from "@/lib/use-page-meta"
+import { StoreDiagram } from "@/components/site/store-diagram"
 
 const quickstart = `codenv init
 codenv add ripgrep 7zip
@@ -94,7 +95,7 @@ const features = [
 const badges = ["Windows x64 + arm64", "PowerShell 5.1 / 7", "Requires git", "MIT"]
 
 const stats = [
-  { value: "81", label: "tests on every push" },
+  { value: "90", label: "tests on every push" },
   { value: "0", label: "shims left behind" },
   { value: "2+", label: "versions of one tool at once" },
   { value: "100", label: "% of user PATH preserved" },
@@ -281,6 +282,9 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="mt-6">
+            <StoreDiagram />
+          </div>
         </div>
       </section>
 
@@ -321,7 +325,7 @@ export default function Home() {
               Scoop packages before it shipped. After every install the store
               has no shims directory, the user PATH is byte-identical (CI
               asserts it on every run), bucket repositories stay pristine, and
-              81 tests cover resolution, shell output, secrets and the devbox
+              90 tests cover resolution, shell output, secrets and the devbox
               importer.
             </p>
             <Button variant="outline" className="mt-6" asChild>

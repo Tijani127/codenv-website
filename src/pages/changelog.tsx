@@ -21,7 +21,7 @@ export default function Changelog() {
   usePageMeta({
     title: "Changelog · codenv",
     description:
-      "All notable changes to codenv, version by version — from 1.0.0 Saskatchewan to 1.1.0 Regina and beyond.",
+      "All notable changes to codenv, version by version — from 1.0.0 Saskatchewan to 1.2.0 Fort Quapelle and beyond.",
   })
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
@@ -51,12 +51,35 @@ export default function Changelog() {
       <Separator className="my-10" />
 
       <div className="mb-2 flex flex-wrap items-center gap-3">
-        <h2 className="text-2xl font-semibold tracking-tight">1.1.0 — Regina</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">
+          1.2.0 — Fort Quapelle
+        </h2>
         <Badge variant="outline" className="font-mono text-[11px]">
-          2026-11-08
+          2026-11-11
         </Badge>
         <Badge variant="outline" className="font-mono text-[11px]">
           latest
+        </Badge>
+      </div>
+      <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+        Staying current: codenv shows you what is stale before you update, and
+        templates get real discovery with their scripts listed.
+      </p>
+
+      <Section
+        title="Added"
+        items={[
+          "<strong><code>codenv outdated [--global] [--missing] [--no-sync]</code></strong> compares every top-level locked package against the latest manifest in its bucket and prints <code>PACKAGE / CURRENT / LATEST / MOVES WITH</code>. Pinned packages say they move with <code>codenv update --all</code>; unpinned ones with <code>codenv install</code>. The command is read-only: nothing is resolved, installed or written.",
+          "<strong><code>codenv templates</code></strong> is promoted to a top-level command (still available as <code>codenv create templates</code>), and now lists the scripts each builtin template scaffolds, so <code>codenv create &lt;tpl&gt;</code> never needs guessing.",
+        ]}
+      />
+
+      <Separator className="my-10" />
+
+      <div className="mb-2 flex flex-wrap items-center gap-3">
+        <h2 className="text-2xl font-semibold tracking-tight">1.1.0 — Regina</h2>
+        <Badge variant="outline" className="font-mono text-[11px]">
+          2026-11-08
         </Badge>
       </div>
       <p className="text-muted-foreground mt-3 text-sm leading-relaxed">

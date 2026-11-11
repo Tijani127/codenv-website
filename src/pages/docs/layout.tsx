@@ -4,6 +4,7 @@ import { Link, Outlet, useLocation } from "react-router-dom"
 import { docNav, flatDocNav } from "./nav"
 import { cn } from "@/lib/utils"
 import { usePageMeta } from "@/lib/use-page-meta"
+import { useSyncTheme } from "@/components/site/theme-toggle"
 
 function Sidebar() {
   const location = useLocation()
@@ -83,11 +84,17 @@ function PrevNext() {
 }
 
 export function DocsLayout() {
+  const light = useSyncTheme()
   return (
     <div className="mx-auto flex max-w-6xl px-4 sm:px-6">
       <Sidebar />
       <main className="min-w-0 flex-1 py-10 lg:max-w-3xl">
-        <div className="prose prose-invert prose-neutral max-w-none prose-headings:tracking-tight prose-a:text-emerald-400 prose-code:font-normal">
+        <div
+          className={
+            "prose prose-neutral max-w-none prose-headings:tracking-tight prose-a:text-emerald-400 prose-code:font-normal " +
+            (light ? "" : "prose-invert")
+          }
+        >
           <Outlet />
         </div>
         <PrevNext />

@@ -89,7 +89,7 @@ export function CliReference() {
       <p>
         Every command and flag in the <code>codenv</code> binary, generated
         from the <code>--help</code> output of the released version (
-        <code>v1.1 Regina</code>). For the story behind the commands, see{" "}
+        <code>v1.2 Fort Quapelle</code>). For the story behind the commands, see{" "}
         <a href="/docs/commands" className="text-emerald-400 hover:underline">
           Commands &amp; scripts
         </a>
